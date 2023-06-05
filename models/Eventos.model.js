@@ -6,6 +6,10 @@ const eventosSchema = new Schema(
     title: String,
     description: String,
     consecuencues: String,
+    creator: {
+      type: Schema.Types.ObjectId,
+      ref:"User",
+    },
     unique: true,
   },
 );

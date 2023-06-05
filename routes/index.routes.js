@@ -16,4 +16,10 @@ router.use("/auth", authRoutes)
 const mainRoutes = require ("./mainpage.routes.js")
 router.use("/mainpage", mainRoutes)
 
+const charaRoutes = require ("./character.routes.js")
+router.use ("/personajes", charaRoutes)
+
+const eventRoutes = require ("./eventos.routes.js")
+router.use("/eventos", eventRoutes)
+
 module.exports = router;

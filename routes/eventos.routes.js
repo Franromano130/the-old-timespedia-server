@@ -12,10 +12,10 @@ const uploader = require("../middlewares/uploader.js");
 
 
 router.get("/insert-data", isLoggedIn, isAdmin, async (req, res, next) => {
-    const {charaId} = req.params
-    console.log("Probando", charaId)
+    const {eventId} = req.params
+    console.log("Probando", eventId)
 
-    const {title, description, url, afiliation, rol} = req.body
+    const {title, description, consecuences} = req.body
     const {_id} = req.session.user;
     if (req.file === undefined) {
         next("No hay imagen");
@@ -24,9 +24,7 @@ router.get("/insert-data", isLoggedIn, isAdmin, async (req, res, next) => {
         const response = await Games.create({
           title: title,
           description: description,
-          url: req.file.path, 
-          afiliation: afiliation,
-          rol: rol,
+          consecuences: consecuences,
           creator: _id,
         });
     
@@ -36,9 +34,9 @@ router.get("/insert-data", isLoggedIn, isAdmin, async (req, res, next) => {
       }
 });
 
-router.get("/list-characters", isLoggedIn, (req, res, next) => {
-    Character.find()
-    .select({ title: 1, description: 1, afiliation: 1})
+router.get("/list-eventos", isLoggedIn, (req, res, next) => {
+    Eventos.find()
+    .select({ title: 1, description: 1, consecuences: 1})
     .then((response) => {
         console.log(response);
         res.json("")
@@ -47,10 +45,10 @@ router.get("/list-characters", isLoggedIn, (req, res, next) => {
         next(error);
     });
 })
-router.get("/list-characters/:personajeId", isLoggedIn, async (req, res, next) => {
+router.get("/list-eventos/:eventoId", isLoggedIn, async (req, res, next) => {
     try{
 
-        const response = await Character.findById(req.params.charaId)
+        const response = await Eventos.findById(req.params.eventId)
         response.title = capitalize (response.title);
         res.json("")
     } catch (error) {
@@ -58,30 +56,28 @@ router.get("/list-characters/:personajeId", isLoggedIn, async (req, res, next) =
     }
 });
 
-router.get("/edit-characters/:personajesId", isLoggedIn, (req, res, next) => {
-       const {charaId} = req.params;
-        Character.findById(charaId)
-        .then((character) =>{
-            res.json("", {character})
+router.get("/edit-eventos/:eventoId", isLoggedIn, (req, res, next) => {
+       const {eventId} = req.params;
+        Eventos.findById(eventId)
+        .then((evento) =>{
+            res.json("", {evento})
         })
         .catch((err) => {
             next(err)
         })
 });
 
-router.post ("/edit-characters/:personajesId/edit", isLoggedIn,  (req, res, next) => {
-    const { charaId } = req.params;
-    console.log("PROBANDO", charaId);
+router.post ("/edit-eventos/:eventoId/edit", isLoggedIn,  (req, res, next) => {
+    const { eventId } = req.params;
+    console.log("PROBANDO", eventId);
   
-    const { title, description, url, afiliation, rol } = req.body;
+    const { title, description, consecuences} = req.body;
     console.log(req.body);
   
-    Character.findByIdAndUpdate(charaId, {
+    Eventos.findByIdAndUpdate(eventId, {
       title,
       description,
-      url,
-      afiliation,
-      rol,
+      consecuences
     })
   
       .then(() => {
@@ -90,10 +86,10 @@ router.post ("/edit-characters/:personajesId/edit", isLoggedIn,  (req, res, next
       .catch((err) => next(err));
 });
     
-router.post ("/edit-characters/:personajesId/delete", isLoggedIn, (req, res, next) => {
-    const { charaId } = req.params;
+router.post ("/edit-eventos/:eventoId/delete", isLoggedIn, (req, res, next) => {
+    const { eventId } = req.params;
   console.log("TEST");
-  Character.findByIdAndDelete(character)
+  Eventos.findByIdAndDelete(evento)
     .then(() => {
       res.json("");
     })
