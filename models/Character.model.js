@@ -8,6 +8,10 @@ const characterSchema = new Schema(
     url: String,
     afiliation: String,
     rol: String,
+    creator: {
+      type: Schema.Types.ObjectId,
+      ref:"User",
+    }
   },
 );
 
