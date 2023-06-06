@@ -10,22 +10,8 @@ const { isLoggedIn, isAdmin } = require("../middlewares/auth.middlewares.js");
 const capitalize = require("../utils/capitalize.js");
 const uploader = require("../middlewares/uploader.js");
 
-router.get("/home", isLoggedIn, (req, res, next) => {
-  res.json("");
-});
 
-router.post("/home", isLoggedIn, (req, res, next) => {});
 
-router.get("/personajes", (req, res, next) => {
-  res.json("");
-});
 
-router.get("/eventos", (req, res, next) => {
-  res.json("");
-});
-
-router.get("/discussions", isLoggedIn, (req, res, next) => {
-  res.json("");
-});
 
 module.exports = router;

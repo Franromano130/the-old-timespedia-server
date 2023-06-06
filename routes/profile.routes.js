@@ -3,7 +3,7 @@ const cloudinary = require("cloudinary").v2;
 
 const { isLoggedIn, isAdmin } = require("../middlewares/auth.middlewares.js");
 
-// rutas privadas. Solo accesibles para usuarios registrados
+
 router.get("/dashboard", isLoggedIn, (req, res, next) => {
   console.log("quien me hace la llamada", req.session.user);
 

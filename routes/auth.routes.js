@@ -14,7 +14,7 @@ router.post("/signup", async (req, res, next) => {
   if (!username || !email || !password) {
     res
       .status(400)
-      .json({ errorMessage: "Todos los campos deben estar llenos" });
+      .json({ errorMessage: "Es obligatorio que todos los campos esten llenos" });
   }
 
   try {
@@ -58,7 +58,7 @@ router.post("/login", async (req, res, next) => {
       foundUser.password
     );
     if (!isPasswordCorrect) {
-      res.status(400).json({ errorMessage: "Contraseña no valida" });
+      res.status(400).json({ errorMessage: "La Contraseña no es correcta" });
       return;
     }
 
